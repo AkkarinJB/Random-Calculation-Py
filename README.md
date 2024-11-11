@@ -3,7 +3,7 @@
 
 This project generates random calculations using a Flask API and displays them on a web page. The frontend is hosted on Netlify, while the backend is hosted on Vercel.
 
-Demo https://random-calculation-py.vercel.app/ 
+
 
 ## Project Structure
 
