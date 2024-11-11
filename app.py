@@ -4,13 +4,13 @@ import random
 import operator
 
 app = Flask(__name__)
-CORS(app)  
+CORS(app, supports_credentials=True)  
 
-# ฟังก์ชันสุ่มตัวเลข 4 ตัว
+
 def generate_numbers():
     return [random.randint(1, 10) for _ in range(4)]
 
-# ฟังก์ชันสุ่มตัวดำเนินการคณิตศาสตร์
+
 def random_operation():
     operations = {
         "+": operator.add,
@@ -20,7 +20,7 @@ def random_operation():
     }
     return random.choice(list(operations.items()))
 
-# ฟังก์ชันคำนวณและแสดงผล
+
 def calculate(numbers):
     result = numbers[0]
     equation = str(numbers[0])
@@ -36,8 +36,16 @@ def calculate(numbers):
     return equation, result
 
 
-@app.route('/calculate', methods=['GET'])
+@app.route('/calculate', methods=['GET', 'OPTIONS'])
 def calculate_api():
+    if request.method == 'OPTIONS':
+       
+        response = jsonify({'message': 'CORS preflight'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Methods', 'GET, OPTIONS')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        return response
+    
     numbers = generate_numbers()
     equation, result = calculate(numbers)
     return jsonify({
