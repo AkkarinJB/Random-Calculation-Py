@@ -26,17 +26,17 @@
             width: 300px;
         }
 
-        
+       
         h1 {
             color: #333;
             font-size: 24px;
             margin-bottom: 20px;
         }
 
-       
+      
         button {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #131414;
             color: white;
             border: none;
             border-radius: 4px;
@@ -45,7 +45,7 @@
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #33c016;
         }
 
        
@@ -53,6 +53,13 @@
             font-size: 16px;
             color: #555;
             margin: 10px 0;
+        }
+
+        
+        #numbers {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff0000;
         }
     </style>
 </head>
@@ -66,12 +73,36 @@
     </div>
 
     <script>
+        let interval;
+
+       
+        function randomNumber() {
+            return Math.floor(Math.random() * 100); 
+        }
+
+       
+        function animateNumbers() {
+            const numbersElement = document.getElementById("numbers");
+            interval = setInterval(() => {
+                numbersElement.textContent = `Numbers: ${randomNumber()}, ${randomNumber()}, ${randomNumber()}`;
+            }, 100); 
+        }
+
+       
         async function getCalculation() {
-            const response = await fetch("random-calculation-py.vercel.app");
+            const response = await fetch("http://127.0.0.1:5000/calculate");
             const data = await response.json();
-            document.getElementById("numbers").textContent = `Numbers: ${data.numbers.join(', ')}`;
-            document.getElementById("equation").textContent = `Equation: ${data.equation}`;
-            document.getElementById("result").textContent = `Result: ${data.result}`;
+            
+            
+            animateNumbers();
+
+            
+            setTimeout(() => {
+                clearInterval(interval);
+                document.getElementById("numbers").textContent = `Numbers: ${data.numbers.join(', ')}`;
+                document.getElementById("equation").textContent = `Equation: ${data.equation}`;
+                document.getElementById("result").textContent = `Result: ${data.result}`;
+            }, 2000); 
         }
     </script>
 </body>
