@@ -4,7 +4,7 @@ import random
 import operator
 
 app = Flask(__name__)
-CORS(app, origins=["https://random-calculation-maut6ha8k-akkarinjbs-projects.vercel.app"]) 
+CORS(app)  
 
 
 def generate_numbers():
@@ -36,16 +36,8 @@ def calculate(numbers):
     return equation, result
 
 
-@app.route('/calculate', methods=['GET', 'OPTIONS'])
+@app.route('/calculate', methods=['GET'])
 def calculate_api():
-    if request.method == 'OPTIONS':
-       
-        response = jsonify({'message': 'CORS preflight'})
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        response.headers.add('Access-Control-Allow-Methods', 'GET, OPTIONS')
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-        return response
-    
     numbers = generate_numbers()
     equation, result = calculate(numbers)
     return jsonify({
