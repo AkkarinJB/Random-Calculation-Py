@@ -4,7 +4,7 @@ import random
 import operator
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True)  
+CORS(app, origins=["https://random-calculation-maut6ha8k-akkarinjbs-projects.vercel.app"]) 
 
 
 def generate_numbers():
