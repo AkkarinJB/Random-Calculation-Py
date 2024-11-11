@@ -67,7 +67,7 @@
 
     <script>
         async function getCalculation() {
-            const response = await fetch("https://random-calculation-maut6ha8k-akkarinjbs-projects.vercel.app");
+            const response = await fetch("random-calculation-py.vercel.app");
             const data = await response.json();
             document.getElementById("numbers").textContent = `Numbers: ${data.numbers.join(', ')}`;
             document.getElementById("equation").textContent = `Equation: ${data.equation}`;
